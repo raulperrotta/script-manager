@@ -1,0 +1,9 @@
+# python caches
+__pycache__/
+*.py[cod]
+
+# editor
+.vscode/
+
+# app data
+data/
