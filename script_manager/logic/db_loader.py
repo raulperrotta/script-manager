@@ -7,11 +7,10 @@ from script_manager.logic.integrity_checker import calculate_sha256
 
 
 class Loader:
-    # store db path for this instance
     def __init__(self, db_path):
         self.db_path = Path(db_path)
 
-    # return all rows from a table in this database
+    # return all rows from a table in the database
     def get_table_data(self, table):
         con = sqlite3.connect(self.db_path)
         con.row_factory = sqlite3.Row
@@ -21,7 +20,6 @@ class Loader:
         con.close()
         return rows
     
-    # convert a database row into a data model object
     def convert_row_to_object(self, row, data_model):
         # create data holder
         object_data = {}

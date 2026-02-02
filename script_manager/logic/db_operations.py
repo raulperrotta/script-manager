@@ -4,16 +4,14 @@ import sys
 
 
 def check_db(path: Path, schema: dict):
-    # validates db format if it exists
     if path.exists():
         schema_checker(path, schema)
-    # creates db file if it does not exist
+
     else:
         db_creation(path, schema)
 
 
 def db_creation(path: Path, schema: dict):
-    # create & connect to the db
     con = sqlite3.connect(path)
     cur = con.cursor()
 
@@ -23,13 +21,11 @@ def db_creation(path: Path, schema: dict):
         # create table with the table info
         cur.execute(f"CREATE TABLE {table} ({table_info})")
 
-    # commit changes and close connection
     con.commit()
     con.close()
 
     
 def schema_checker(path: Path, schema: dict):
-    # connect to the db
     con = sqlite3.connect(path)
     cur = con.cursor()
 
@@ -58,5 +54,4 @@ def schema_checker(path: Path, schema: dict):
                 con.close()
                 sys.exit(1)
 
-    # close connection
     con.close()

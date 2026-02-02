@@ -5,7 +5,6 @@ import sys
 
 
 def validate_files(config):
-    # loop through all file locations
     for file, file_path in config['files'].items():
         path = Path(file_path)
 

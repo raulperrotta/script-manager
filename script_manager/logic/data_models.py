@@ -29,6 +29,7 @@ SCHEMA = {
         "id": "INTEGER PRIMARY KEY AUTOINCREMENT",
         "name": "TEXT",
         "type": "TEXT",
+        "platform": "TEXT",
         "last_run": "TEXT",
         "sha256": "TEXT",
         "desc": "TEXT",
@@ -64,6 +65,7 @@ class Script:
     id: int
     name: str
     type: str
+    platform: str
     last_run: datetime
     sha256: str
     desc: str

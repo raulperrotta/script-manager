@@ -5,19 +5,14 @@ from script_manager.logic.db_loader import database_loader
 
 
 def initialize_app():
-    # load config
     config = load_config()
 
-    # create / validate directories
     validate_directories(config)
 
-    # create / validate files
     validate_files(config)
 
-    # load database into memory
     script_list, run_log_list, app_log_list = database_loader(config["files"]["app_db"])
 
-    # return app data main app
     return {
         "config": config,
         "scripts": script_list,
