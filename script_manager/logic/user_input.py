@@ -143,18 +143,20 @@ def archive_confirm_input(state, app_data, BODIES, MENUS):
 def sort_input(state, app_data, BODIES, MENUS):
     # dictionary for user to choose with int input
     SORT_STYLE = {
-        1: "Last Run",
-        2: "Type",
-        3: "Name",
-        4: "ID"
+        1: "id",
+        2: "name",
+        3: "platform",
+        4: "type",
+        5: "status",
+        6: "last_run"
     }
 
     while True:
         try:
-            selection = int(input("Select Script Type: ").strip())
-            # 5 is used to cancel action
-            if selection == 5:
-                return 5
+            selection = int(input("Select Sort Style: ").strip())
+            # used to back from sort menu
+            if selection == (len(SORT_STYLE) + 1):
+                return "back"
             elif selection in SORT_STYLE:
                 return SORT_STYLE[selection]
             else:

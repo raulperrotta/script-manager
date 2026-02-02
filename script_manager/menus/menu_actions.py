@@ -1,4 +1,5 @@
 from ..logic import user_input
+from ..logic import set_sort_style
 from . import screen_render
 import sys
 
@@ -96,9 +97,9 @@ def sort(state, app_data, BODIES, MENUS):
         state.update({"body": "SCRIPTS", "menu": "SORT"})
         screen_render.refresh_screen(state, app_data, BODIES, MENUS)
         sort_choice = user_input.sort_input(state, app_data, BODIES, MENUS)
-        if sort_choice == 5:
+        if sort_choice == "back":
             break
-        # update sort style    
+        set_sort_style.update_sorting(app_data["config"], sort_choice)
     state.update({"body": "SCRIPTS", "menu": "MANAGE"})
 
 

@@ -1,4 +1,4 @@
-def build_script_body_items(scripts):
+def build_script_body_items(scripts, config):
     # get filtered script list
     script_list = [
         {
@@ -13,8 +13,17 @@ def build_script_body_items(scripts):
         if not script.archived
     ]
 
-    # to do: add sorting
-    return script_list
+   # get stort style and order and apply to list 
+    sort_style = config["settings"]["sort_style"]
+    sort_order = config["settings"]["sort_reverse"]
+
+    sorted_scripts = sorted(
+        script_list,
+        key=lambda x: x[sort_style] or "",
+        reverse=(sort_order == "True")
+    )
+
+    return sorted_scripts
 
 
 def get_script_by_id(script_id, script_list):

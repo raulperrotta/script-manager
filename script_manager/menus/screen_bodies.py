@@ -3,7 +3,7 @@ from . import screen_render
 
 # body swiches
 def scripts_body(state, app_data):
-    body_data = data_builder.build_script_body_items(app_data["scripts"])
+    body_data = data_builder.build_script_body_items(app_data["scripts"], app_data["config"])
     return lambda: screen_render.render_scripts_table(body_data)
 
 

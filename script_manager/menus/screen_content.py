@@ -107,13 +107,9 @@ MENUS = {
         }
     },
     "SORT": {
-        "items": ["[1] Last Run", "[2] Type", "[3] Name", "[4] ID", "[5] Back"],
+        "items": ["[1] ID | [2] Name | [3] Platform | [4] Type | [5] Status | [6] Last Run | [7] Back"],
         "actions": {
-            1: menu_actions.sort,
-            2: menu_actions.sort,
-            3: menu_actions.sort,
-            4: menu_actions.sort,
-            5: menu_actions.manage
+            1: None
         }
     },
     "ADD_FILE": {
