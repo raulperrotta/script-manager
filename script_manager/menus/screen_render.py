@@ -1,5 +1,5 @@
 import os
-from script_manager.bootstrap.config_loader import load_config
+from ..logic.db_loader import set_script_status
 
 
 WIDTH = 100
@@ -14,6 +14,7 @@ def clear_console():
 
 def render_screen(scripts, body, menu_items, config):
     clear_console()
+    set_script_status(scripts, config["folders"]["scripts_dir"])
     header_render(config)
     info_render(scripts)
     body_render(body)   

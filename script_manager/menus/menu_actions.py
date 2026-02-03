@@ -2,6 +2,8 @@ from ..logic import user_input
 from ..logic import set_sort_style
 from ..logic import script_entry_creation
 from . import screen_render
+from ..logic import file_opening
+from ..logic import data_builder
 import sys
 
 
@@ -90,6 +92,17 @@ def script_logs(state, app_data, BODIES, MENUS):
 
 
 def open_script(state, app_data, BODIES, MENUS):
+    target_script = data_builder.get_script_by_id(state["selected_script"], app_data["scripts"])
+    if target_script.status != "Path Not Found":
+        file_opening.open_file(app_data["config"]["folders"]["scripts_dir"], app_data["scripts"], target_script)
+        screen_render.refresh_screen(state, app_data, BODIES, MENUS)
+        if target_script.status == "Modified":
+            state.update({"body": "DETAILS", "menu": "REHASH"})
+            screen_render.refresh_screen(state, app_data, BODIES, MENUS)
+            rehash_choice = user_input.rehash_confirm_input(state, app_data, BODIES, MENUS)
+            if rehash_choice == True:
+                # rehash script function
+                pass
     state.update({"body": "DETAILS", "menu": "DETAILS"})
 
 
@@ -126,6 +139,7 @@ def run_logs(state, app_data, BODIES, MENUS):
 
 
 def open_run_log_file(state, app_data, BODIES, MENUS):
+    file_opening.open_file(app_data["config"]["files"]["run_logs_txt"])
     state.update({"body": "RUN_LOGS", "menu": "RUN_LOGS"})
 
 
@@ -134,6 +148,7 @@ def app_logs(state, app_data, BODIES, MENUS):
 
 
 def open_app_log_file(state, app_data, BODIES, MENUS):
+    file_opening.open_file(app_data["config"]["files"]["app_logs_txt"])
     state.update({"body": "APP_LOGS", "menu": "APP_LOGS"})
 
 
