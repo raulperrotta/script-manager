@@ -1,5 +1,5 @@
 import os
-from script_manager.logic.config_loader import load_config
+from script_manager.bootstrap.config_loader import load_config
 
 
 WIDTH = 100
@@ -12,16 +12,15 @@ def clear_console():
         os.system("clear")
 
 
-def render_screen(scripts, body, menu_items):
+def render_screen(scripts, body, menu_items, config):
     clear_console()
-    header_render()
+    header_render(config)
     info_render(scripts)
     body_render(body)   
     menu_render(menu_items)
 
 
-def header_render():
-    config = load_config()
+def header_render(config):
     app_name = config["app"]["app_name"]
 
     print("=" * WIDTH)
@@ -42,7 +41,7 @@ def info_render(scripts):
             else:
                 modified += 1
 
-    processes = f"Trusted Scripts: {trusted} | Modified: {modified} | Running: {running}"
+    processes = f"Trusted Scripts: {trusted} | Invalid: {modified} | Running: {running}"
 
     print(processes.center(WIDTH))
     print("-" * WIDTH)
@@ -64,7 +63,7 @@ def menu_render(menu_items):
 def refresh_screen(state, app_data, BODIES, MENUS):
     body = BODIES[state["body"]](state, app_data)
     menu = MENUS[state["menu"]]
-    render_screen(app_data["scripts"], body, menu["items"])
+    render_screen(app_data["scripts"], body, menu["items"], app_data["config"])
 
 
 def render_scripts_table(scripts):
@@ -177,3 +176,17 @@ def render_app_logs_table(app_logs):
         ]
         print(" | ".join(log_entry))
 
+
+def render_new_script_entry(script):
+    label_width=12
+
+    display_model = [
+        ("Filename", "path"),
+        ("Name", "name"),
+        ("Type", "type"),
+        ("Description", "desc"),
+    ]
+
+    for field_name, object_reference in display_model:
+        field_data = getattr(script, object_reference, "-")
+        print(f"{field_name.ljust(label_width)}: {field_data}")

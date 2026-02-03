@@ -1,6 +1,6 @@
-from script_manager.logic.config_loader import load_config
-from script_manager.logic.directory_checker import validate_directories
-from script_manager.logic.file_checker import validate_files
+from script_manager.bootstrap.config_loader import load_config
+from script_manager.bootstrap.directory_checker import validate_directories
+from script_manager.bootstrap.file_checker import validate_files
 from script_manager.logic.db_loader import database_loader
 
 
@@ -11,7 +11,7 @@ def initialize_app():
 
     validate_files(config)
 
-    script_list, run_log_list, app_log_list = database_loader(config["files"]["app_db"])
+    script_list, run_log_list, app_log_list = database_loader(config["files"]["app_db"], config["folders"]["scripts_dir"])
 
     return {
         "config": config,

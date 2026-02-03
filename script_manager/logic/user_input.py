@@ -1,4 +1,5 @@
 from ..menus import screen_render
+from pathlib import Path
 
 
 def menu_input(state, app_data, BODIES, MENUS):
@@ -36,17 +37,34 @@ def script_select_input(state, app_data, BODIES, MENUS):
 
 
 def file_input(state, app_data, BODIES, MENUS):
-    # limit fiename size for input validation
+    # limit name size for input validation
     MAX_FILE_LEN = 18
+
+    # supported extensions from config file for input validation
+    SUPPORTED_EXTENSIONS = set(extension.strip() for extension in app_data["config"]["settings"]["supported_script_extensions"].split(","))
+
+    # expected script directory for input validation
+    APP_ROOT = Path(__file__).parent.parent.parent
+    SCRIPTS_DIR = (APP_ROOT / app_data["config"]["folders"]["scripts_dir"]).resolve()
 
     while True:
         value = input("Enter Filename: ").strip()
-        if len(value) == 0:
+        path = (SCRIPTS_DIR / value).resolve()
+
+        if not value:
             screen_render.refresh_screen(state, app_data, BODIES, MENUS)
             print("Name cannot be empty.")
+        elif value == "0":
+            return value
         elif len(value) > MAX_FILE_LEN:
             screen_render.refresh_screen(state, app_data, BODIES, MENUS)
             print(f"Name must be {MAX_FILE_LEN} characters or fewer.")
+        elif not path.exists():
+            screen_render.refresh_screen(state, app_data, BODIES, MENUS)
+            print(f"File '{value}' does not exist in {SCRIPTS_DIR}.")
+        elif path.suffix not in SUPPORTED_EXTENSIONS:
+            screen_render.refresh_screen(state, app_data, BODIES, MENUS)
+            print(f"Unsupported file extension. Must be one of: {', '.join(SUPPORTED_EXTENSIONS)}")
         else:
             return value
 
@@ -57,7 +75,7 @@ def name_input(state, app_data, BODIES, MENUS):
 
     while True:
         value = input("Enter Script Name: ").strip()
-        if len(value) == 0:
+        if not value:
             screen_render.refresh_screen(state, app_data, BODIES, MENUS)
             print("Name cannot be empty.")
         elif len(value) > MAX_NAME_LEN:
@@ -97,7 +115,7 @@ def desc_input(state, app_data, BODIES, MENUS):
 
     while True:
         value = input("Enter Script Description: ").strip()
-        if len(value) == 0:
+        if not value:
             screen_render.refresh_screen(state, app_data, BODIES, MENUS)
             print("Name cannot be empty.")
         elif len(value) > MAX_DESC_LEN:

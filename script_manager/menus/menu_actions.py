@@ -1,5 +1,6 @@
 from ..logic import user_input
 from ..logic import set_sort_style
+from ..logic import script_entry_creation
 from . import screen_render
 import sys
 
@@ -104,39 +105,19 @@ def sort(state, app_data, BODIES, MENUS):
 
 
 def add(state, app_data, BODIES, MENUS):
-    while True:
-        state.update({"body": "ADD", "menu": "ADD_FILE"})
-        screen_render.refresh_screen(state, app_data, BODIES, MENUS)
-        new_script_path = user_input.file_input(state, app_data, BODIES, MENUS)
-        if new_script_path == "0":
-            break
-        
-        state.update({"body": "ADD", "menu": "ADD_NAME"})
-        screen_render.refresh_screen(state, app_data, BODIES, MENUS)
-        new_script_name = user_input.name_input(state, app_data, BODIES, MENUS)
-        if new_script_name == "0":
-            break
+    
+    script_count = len(app_data["scripts"])
 
-        state.update({"body": "ADD", "menu": "ADD_TYPE"})
-        screen_render.refresh_screen(state, app_data, BODIES, MENUS)
-        new_script_type = user_input.type_input(state, app_data, BODIES, MENUS)
-        if new_script_type == "0":
-            break
+    if script_count != 0:
+        latest_script = app_data["scripts"][script_count - 1]
+        NEW_SCRIPT_ID = latest_script.id + 1
+    else:
+        NEW_SCRIPT_ID = 1
 
-        state.update({"body": "ADD", "menu": "ADD_DESC"})
-        screen_render.refresh_screen(state, app_data, BODIES, MENUS)
-        new_script_desc = user_input.desc_input(state, app_data, BODIES, MENUS)
-        if new_script_desc == "0":
-            break
+    state["selected_script"] = NEW_SCRIPT_ID
 
-        state.update({"body": "ADD", "menu": "ADD_CONFIRM"})
-        screen_render.refresh_screen(state, app_data, BODIES, MENUS)
-        new_script_confirm = user_input.creation_confirm_input(state, app_data, BODIES, MENUS)
-        if new_script_confirm == False:
-            break
-        
-        #create_new_script(new_script_confirm, new_script_path, new_script_name, new_script_type, new_script_desc)
-        break
+    script_entry_creation.create_new_script(state, app_data, BODIES, MENUS, NEW_SCRIPT_ID)
+
     state.update({"body": "SCRIPTS", "menu": "MANAGE"})
 
 

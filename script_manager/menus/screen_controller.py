@@ -8,7 +8,7 @@ def menu(state, app_data):
         body = BODIES[state["body"]](state, app_data)
         menu = MENUS[state["menu"]]
 
-        render_screen(app_data["scripts"], body, menu["items"])
+        render_screen(app_data["scripts"], body, menu["items"], app_data["config"])
 
         selection = menu_input(state, app_data, BODIES, MENUS)
         action = menu["actions"].get(selection)

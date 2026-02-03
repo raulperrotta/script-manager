@@ -62,13 +62,18 @@ class Loader:
         return self.app_logs
     
 
-def set_script_status(script_list):
+def set_script_status(script_list, script_folder):
+    APP_ROOT = Path(__file__).parent.parent.parent
+    SCRIPTS_DIR = (APP_ROOT / script_folder).resolve()
+
     for script in script_list:
         # checks for script file location
-        if not Path(script.path).exists():
+        complete_file_path = (SCRIPTS_DIR / script.path).resolve()
+
+        if not Path(complete_file_path).exists():
             script.status = "Path Not Found"
         # checks for file integrity
-        elif script.sha256 != calculate_sha256(Path(script.path)):
+        elif script.sha256 != calculate_sha256(complete_file_path):
             script.status = "Modified"    
         # path found & SHA256 check passed
         else:            
@@ -77,10 +82,10 @@ def set_script_status(script_list):
 
 
 # orchestrator
-def database_loader(db_path):
+def database_loader(db_path, scripts_dir):
     loader = Loader(db_path)
     script_list = loader.load_scripts()
-    script_list = set_script_status(script_list)
+    script_list = set_script_status(script_list, scripts_dir)
     run_log_list = loader.load_run_logs()
     app_log_list = loader.load_app_logs()
     return script_list, run_log_list, app_log_list

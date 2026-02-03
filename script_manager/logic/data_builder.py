@@ -71,8 +71,6 @@ def build_app_logs_body_items(scripts, app_logs):
             "code": log.code,
             "script_id": log.script_id,
             "script_name": log.script_name,
-            "old_data": log.old_data,
-            "new_data": log.new_data,
         }
         for log in app_logs
     ]

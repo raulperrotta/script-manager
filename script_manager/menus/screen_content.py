@@ -8,7 +8,7 @@ BODIES = {
     "SCRIPT_LOGS": screen_bodies.script_logs,
     "RUN_LOGS": screen_bodies.run_logs_body,
     "APP_LOGS": screen_bodies.app_logs_body,
-    "ADD": screen_bodies.script_details #to do: create temp obj display
+    "ADD": screen_bodies.add_new_script
 }
 
 

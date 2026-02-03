@@ -16,6 +16,10 @@ def script_logs(state, app_data):
     body_data = data_builder.get_logs_by_script_id(app_data["scripts"], state["selected_script"], app_data["run_logs"])
     return lambda: screen_render.render_run_logs_table(body_data)
 
+def add_new_script(state, app_data):
+    body_data = data_builder.get_script_by_id(state["selected_script"], app_data["scripts"])
+    return lambda: screen_render.render_new_script_entry(body_data)
+
 
 def run_logs_body(state, app_data):
     body_data = data_builder.build_run_logs_body_items(app_data["scripts"], app_data["run_logs"])

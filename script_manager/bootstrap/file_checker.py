@@ -1,5 +1,5 @@
 from script_manager.logic.data_models import SCHEMA
-from script_manager.logic.db_operations import check_db
+from script_manager.bootstrap.db_checker import check_db
 from pathlib import Path
 import sys
 

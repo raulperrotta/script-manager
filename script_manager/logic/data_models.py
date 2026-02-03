@@ -54,8 +54,6 @@ SCHEMA = {
         "code": "TEXT",
         "script_id": "INTEGER",
         "script_name": "TEXT",
-        "old_data": "TEXT",
-        "new_data": "TEXT" 
     }
 }
 
@@ -97,5 +95,3 @@ class AppLog:
     code: str 
     script_id: int = field(default=None, repr=False)
     script_name: str = field(default=None, repr=False)
-    old_data: str = field(default=None, repr=False)
-    new_data: str = field(default=None, repr=False)

@@ -22,36 +22,38 @@ Root:
 │   │       run_logs.txt
 │   │
 │   └───scripts
-|
 └───script_manager
     │   __init__.py
     │
     ├───bootstrap
-    │   │   bootstrap.py
-    │   │   __init__.py
-    ├───logic
-    │   │   config_loader.py
-    │   │   data_builder.py
-    │   │   data_models.py
-    │   │   db_loader.py
-    │   │   db_operations.py
-    │   │   directory_checker.py
-    │   │   edit_script.py
-    │   │   file_checker.py
-    │   │   integrity_checker.py
-    │   │   open_file.py
-    │   │   run_script.py
-    │   │   user_input.py
-    │   │   __init__.py
-    │   
+    │       bootstrap.py
+    │       config_loader.py
+    │       db_checker.py
+    │       directory_checker.py
+    │       file_checker.py
+    │       __init__.py
     │
-    ├───menus
-        │   menu_actions.py
-        │   screen_bodies.py
-        │   screen_content.py
-        │   screen_controller.py
-        │   screen_render.py
-        │   __init__.py
+    ├───logic
+    │       data_builder.py
+    │       data_models.py
+    │       db_loader.py
+    │       integrity_checker.py
+    │       log_creation.py
+    │       open_file.py
+    │       script_editing.py
+    │       script_entry_creation.py
+    │       script_exe.py
+    │       set_sort_style.py
+    │       user_input.py
+    │       __init__.py
+    │
+    └───menus
+            menu_actions.py
+            screen_bodies.py
+            screen_content.py
+            screen_controller.py
+            screen_render.py
+            __init__.py
 
 ```
  Note: Data folder and files are generated during first launch.
@@ -67,6 +69,8 @@ Root:
 * [dataclasses](https://docs.python.org/3/library/dataclasses.html)
 * [hashlib](https://docs.python.org/3/library/hashlib.html)
 * [os](https://docs.python.org/3/library/os.html)
+* [shutil](https://docs.python.org/3/library/shutil.html)
+
 
 ### External Libraries
 
