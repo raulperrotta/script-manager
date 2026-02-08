@@ -36,7 +36,7 @@ def temp_script_creation(state, app_data, BODIES, MENUS, NEW_SCRIPT_ID):
         desc=None,
         date_added=datetime.now(),
         date_modified=datetime.now(),
-        path=None,
+        path="None",
         run_count=0,
         archived=False,
 )
