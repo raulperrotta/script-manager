@@ -1,6 +1,6 @@
 # Script Manager
 
-Local CLI script repository manager focused on scheduling, logging, and SHA-256 integrity checks.
+Local CLI script repository manager focused on script running, logging, and SHA-256 integrity checks.
 
 ## Project Architecture
 

@@ -36,6 +36,9 @@ def get_logs_by_script_id(scripts, script_id, run_logs):
     # limit number of logs to number of active scripts
     limit = len([script for script in scripts if not script.archived])
 
+    if limit < 10:
+        limit = 10
+
     # get filtered log list
     script_logs = [
         {
@@ -63,6 +66,9 @@ def build_app_logs_body_items(scripts, app_logs):
     # limit number of logs to number of active scripts
     limit = len([script for script in scripts if not script.archived])
 
+    if limit < 10:
+        limit = 10
+
     # get app log list
     app_logs = [
         {
@@ -88,6 +94,9 @@ def build_app_logs_body_items(scripts, app_logs):
 def build_run_logs_body_items(scripts, run_logs):
     # limit number of logs to number of active scripts
     limit = len([script for script in scripts if not script.archived])
+
+    if limit < 10:
+        limit = 10
 
     # get run log list
     run_logs = [
