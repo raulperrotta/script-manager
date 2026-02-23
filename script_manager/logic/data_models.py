@@ -1,4 +1,5 @@
 from dataclasses import dataclass, field
+from subprocess import Popen
 from pathlib import Path
 from datetime import datetime
 
@@ -75,6 +76,7 @@ class Script:
 
     # runtime only
     status: str = field(default=None, repr=False)
+    process: Popen = field(default=None, repr=False)
 
 # run log object model
 @dataclass

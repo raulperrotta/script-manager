@@ -158,6 +158,17 @@ def archive_confirm_input(state, app_data, BODIES, MENUS):
         print("Please Confirm or Cancel.")
 
 
+def stop_script_input(state, app_data, BODIES, MENUS):
+    while True:
+        value = input("Stop Script?: ").strip().upper()
+        if value in ("Y", "YES"):
+            return True
+        if value in ("N", "NO", "0"):
+            return False
+        screen_render.refresh_screen(state, app_data, BODIES, MENUS)
+        print("Please Confirm or Cancel.")
+
+
 def sort_input(state, app_data, BODIES, MENUS):
     # dictionary for user to choose with int input
     SORT_STYLE = {

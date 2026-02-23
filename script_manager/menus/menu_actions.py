@@ -1,6 +1,7 @@
 from ..logic import user_input
 from ..logic import set_sort_style
 from ..logic import script_entry_creation
+from ..logic import script_exe
 from . import screen_render
 from ..logic import file_opening
 from ..logic import data_builder
@@ -35,11 +36,45 @@ def details(state, app_data, BODIES, MENUS):
 
 
 def run(state, app_data, BODIES, MENUS):
-    state.update({"body": "DETAILS", "menu": "DETAILS"})
+    target_script = get_script_by_id(state["selected_script"], app_data["scripts"])
 
+    screen_render.refresh_screen(state, app_data, BODIES, MENUS)
+    
+    if target_script.status == "Ready":
+        script_exe.run_script(app_data, target_script)
+        state.update({"body": "DETAILS", "menu": "RUN_SUCCESS"})        
+        screen_render.refresh_screen(state, app_data, BODIES, MENUS)
+        temp_stop = input()
+
+    elif target_script.status == "Running":
+        state.update({"body": "DETAILS", "menu": "RUN_FAIL_RUNNING"})
+        screen_render.refresh_screen(state, app_data, BODIES, MENUS)
+        stop_input = user_input.stop_script_input(state, app_data, BODIES, MENUS)
+        if stop_input:
+            script_exe.end_script_process(target_script)
+
+    elif target_script.status == "Modified":
+        state.update({"body": "DETAILS", "menu": "RUN_FAIL_HASH"})
+        screen_render.refresh_screen(state, app_data, BODIES, MENUS)
+        temp_stop = input()
+
+    else:
+        state.update({"body": "DETAILS", "menu": "RUN_FAIL_PATH"})
+        screen_render.refresh_screen(state, app_data, BODIES, MENUS)
+        temp_stop = input()
+    state.update({"body": "DETAILS", "menu": "DETAILS"})
+    
 
 def edit(state, app_data, BODIES, MENUS):
-    state.update({"body": "DETAILS", "menu": "EDIT"})
+    target_script = get_script_by_id(state["selected_script"], app_data["scripts"])
+
+    if target_script.status == "Running":
+        state.update({"body": "DETAILS", "menu": "EDIT_FAIL"})
+        screen_render.refresh_screen(state, app_data, BODIES, MENUS)
+        temp_stop = input()
+        state.update({"body": "DETAILS", "menu": "DETAILS"})
+    else:
+        state.update({"body": "DETAILS", "menu": "EDIT"})
 
 
 def edit_name(state, app_data, BODIES, MENUS):  
@@ -104,7 +139,7 @@ def script_logs(state, app_data, BODIES, MENUS):
 def open_script(state, app_data, BODIES, MENUS):
     target_script = data_builder.get_script_by_id(state["selected_script"], app_data["scripts"])
     if target_script.status != "Path Not Found":
-        file_opening.open_file(app_data["config"]["folders"]["scripts_dir"], app_data["scripts"], target_script)
+        file_opening.open_file(app_data["config"]["folders"]["scripts_dir"], target_script)
         screen_render.refresh_screen(state, app_data, BODIES, MENUS)
         if target_script.status == "Modified":
             state.update({"body": "DETAILS", "menu": "REHASH"})
@@ -168,4 +203,4 @@ def open_app_log_file(state, app_data, BODIES, MENUS):
 
 
 def exit(state, app_data, BODIES, MENUS):
-    sys.exit(1)
+    sys.exit(0)

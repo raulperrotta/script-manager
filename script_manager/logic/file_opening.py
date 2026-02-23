@@ -3,7 +3,7 @@ import sys
 from pathlib import Path
 
 
-def open_file(path, script_list=None, script=None):
+def open_file(path, script=None):
     APP_ROOT = Path(__file__).parent.parent.parent
 
     if script:

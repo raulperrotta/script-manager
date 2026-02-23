@@ -53,8 +53,20 @@ MENUS = {
             1: menu_actions.details,
         }
     },
-    "RUN_FAIL": {
-        "items": ["Script Cannot Run. Please Check Path and SHA-256 Validation."],
+    "RUN_FAIL_RUNNING": {
+        "items": ["Script is already running. Stop Script? (Y/N) | [0] Back"],
+        "actions": {
+            1: menu_actions.details,
+        }
+    },
+    "RUN_FAIL_PATH": {
+        "items": ["Script Cannot Run. File not found."],
+        "actions": {
+            1: menu_actions.details,
+        }
+    },
+    "RUN_FAIL_HASH": {
+        "items": ["Script Cannot Run. File validation failed."],
         "actions": {
             1: menu_actions.details,
         }
@@ -70,6 +82,12 @@ MENUS = {
             6: menu_actions.details
         }
     },
+    "EDIT_FAIL": {
+        "items": ["Script cannot be edited while running."],
+        "actions": {
+            1: None
+        }
+    },    
     "EDIT_NAME": {
         "items": ["New Script Name | [0] Cancel"],
         "actions": {

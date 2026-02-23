@@ -70,8 +70,11 @@ Root:
 * [hashlib](https://docs.python.org/3/library/hashlib.html)
 * [os](https://docs.python.org/3/library/os.html)
 * [shutil](https://docs.python.org/3/library/shutil.html)
+* [subprocess](https://docs.python.org/3/library/subprocess.html)
+* [socket](https://docs.python.org/3/library/socket.html)
+* [uuid](https://docs.python.org/3/library/uuid.html)
 
 
 ### External Libraries
 
- No third party libraries are used in this project.
+ No third party libraries are used in this project.uuid

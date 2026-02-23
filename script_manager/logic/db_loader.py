@@ -76,6 +76,8 @@ def set_script_status(script_list, script_folder):
         elif script.sha256 != calculate_sha256(complete_file_path):
             script.status = "Modified"    
         # path found & SHA256 check passed
+        elif script.status == "Running":
+            continue
         else:            
             script.status = "Ready"
     return script_list

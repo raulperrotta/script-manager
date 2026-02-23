@@ -1,5 +1,6 @@
 import os
 from ..logic.db_loader import set_script_status
+from ..logic.script_exe import check_script_process
 
 
 WIDTH = 100
@@ -15,6 +16,7 @@ def clear_console():
 def render_screen(scripts, body, menu_items, config):
     clear_console()
     set_script_status(scripts, config["folders"]["scripts_dir"])
+    check_script_process(scripts)
     header_render(config)
     info_render(scripts)
     body_render(body)   
